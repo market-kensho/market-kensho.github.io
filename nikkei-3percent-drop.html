@@ -9,25 +9,35 @@
   <meta name="description" content="日経平均が前営業日比3％以上下落した翌日は反発しやすいのか。2023年1月から2026年7月までの日次データを使い、全17事例を検証しました。">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+                   "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
       background: #f5f7fa;
       color: #1f2933;
       line-height: 1.85;
     }
 
     header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
+      background: #17233b;
       padding: 18px 20px;
     }
 
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
     header a {
-      color: #1f2933;
+      color: #ffffff;
       text-decoration: none;
       font-weight: 700;
       font-size: 20px;
+      letter-spacing: 0.05em;
     }
 
     main {
@@ -38,18 +48,28 @@
 
     article {
       background: #ffffff;
-      padding: 30px 22px;
+      padding: 36px 30px;
       border-radius: 12px;
     }
 
+    .article-number {
+      margin: 0 0 12px;
+      color: #66788f;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
     h1 {
-      font-size: 30px;
+      margin: 0 0 28px;
+      font-size: 32px;
       line-height: 1.45;
-      margin-top: 0;
     }
 
     h2 {
-      margin-top: 46px;
+      margin-top: 52px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #17233b;
       font-size: 23px;
       line-height: 1.5;
     }
@@ -59,31 +79,77 @@
       font-size: 19px;
     }
 
+    p {
+      margin: 0 0 20px;
+    }
+
     .summary {
       background: #eef4f8;
+      padding: 24px;
+      border-left: 4px solid #17233b;
+      border-radius: 8px;
+      margin: 32px 0;
+    }
+
+    .summary-title {
+      margin-bottom: 18px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .result-item {
+      background: #ffffff;
+      padding: 16px 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .result-label {
+      display: block;
+      color: #66788f;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .result-number {
+      display: block;
+      margin-top: 5px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    .method {
+      background: #f7f8fa;
       padding: 22px;
       border-radius: 10px;
-      margin: 30px 0;
+      margin: 26px 0;
     }
 
-    .summary strong {
-      font-size: 18px;
-    }
-
-    .result {
-      font-size: 20px;
+    .method-title {
+      margin-bottom: 12px;
       font-weight: 700;
-      margin: 12px 0;
     }
 
-    .note {
-      color: #52606d;
-      font-size: 14px;
+    .method p {
+      margin: 0;
     }
 
     .table-wrap {
       overflow-x: auto;
-      margin: 24px 0;
+      margin: 26px 0;
+      border: 1px solid #e1e5ea;
+      border-radius: 8px;
     }
 
     table {
@@ -91,9 +157,11 @@
       min-width: 580px;
       border-collapse: collapse;
       font-size: 14px;
+      background: #ffffff;
     }
 
-    th, td {
+    th,
+    td {
       padding: 11px 9px;
       border-bottom: 1px solid #dfe3e8;
       text-align: right;
@@ -110,15 +178,53 @@
       text-align: left;
     }
 
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
     .plus {
       font-weight: 700;
     }
 
-    .method {
-      background: #f7f8fa;
-      padding: 20px;
+    .conclusion {
+      background: #eef1f5;
+      padding: 24px;
       border-radius: 10px;
-      margin: 24px 0;
+      margin: 28px 0;
+    }
+
+    .conclusion p:last-child {
+      margin-bottom: 0;
+    }
+
+    .source-box {
+      background: #f7f8fa;
+      padding: 22px;
+      border-radius: 10px;
+      margin-top: 24px;
+      font-size: 14px;
+      color: #52606d;
+    }
+
+    .source-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .note {
+      color: #52606d;
+      font-size: 14px;
+    }
+
+    .back-link {
+      margin-top: 45px;
+      padding-top: 25px;
+      border-top: 1px solid #e1e5ea;
+    }
+
+    .back-link a {
+      color: #17233b;
+      font-weight: 700;
+      text-decoration: none;
     }
 
     footer {
@@ -127,24 +233,51 @@
       font-size: 13px;
       padding: 30px 20px;
     }
+
+    @media (max-width: 700px) {
+      main {
+        padding: 20px 14px 50px;
+      }
+
+      article {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      h2 {
+        font-size: 21px;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
 
 <header>
-  <a href="index.html">市場検証室</a>
+  <div class="header-inner">
+    <a href="index.html">市場検証室</a>
+  </div>
 </header>
 
 <main>
 <article>
 
-  <p class="note">検証記事 #001</p>
+  <p class="article-number">検証記事 #001</p>
 
   <h1>日経平均が3％以上急落した翌日は上がりやすいのか？</h1>
 
   <p>
-    株式市場が大きく下落すると、「さすがに下がりすぎた」「翌日は自律反発するのではないか」といった見方が出てきます。
+    株式市場が大きく下落すると、
+    「さすがに下がりすぎた」
+    「翌日は自律反発するのではないか」
+    といった見方が出てきます。
   </p>
 
   <p>
@@ -152,23 +285,29 @@
   </p>
 
   <p>
-    今回は、日経平均株価の日次データを使い、前営業日から3％以上下落した日の翌営業日がどう動いたのかを検証しました。
+    今回は、日経平均株価の日次データを使い、
+    前営業日から3％以上下落した日の翌営業日がどう動いたのかを検証しました。
   </p>
 
   <div class="summary">
-    <strong>検証結果</strong>
+    <div class="summary-title">検証結果</div>
 
-    <p class="result">
-      3％以上下落した日：17回
-    </p>
+    <div class="result-grid">
+      <div class="result-item">
+        <span class="result-label">3％以上下落</span>
+        <span class="result-number">17回</span>
+      </div>
 
-    <p class="result">
-      翌営業日に上昇：10回
-    </p>
+      <div class="result-item">
+        <span class="result-label">翌営業日に上昇</span>
+        <span class="result-number">10回</span>
+      </div>
 
-    <p class="result">
-      上昇率：58.8％
-    </p>
+      <div class="result-item">
+        <span class="result-label">上昇割合</span>
+        <span class="result-number">58.8％</span>
+      </div>
+    </div>
 
     <p>
       翌営業日の平均騰落率：<strong>+0.80％</strong><br>
@@ -180,11 +319,12 @@
 
   <p>
     「急落」という言葉に明確な共通基準があるわけではありません。
-    そこで今回は、日経平均の終値が前営業日の終値と比べて3％以上下落した日を対象としました。
+    そこで今回は、日経平均の終値が前営業日の終値と比べて
+    3％以上下落した日を対象としました。
   </p>
 
   <div class="method">
-    <strong>検証条件</strong>
+    <div class="method-title">検証条件</div>
 
     <p>
       対象：日経平均株価<br>
@@ -195,13 +335,15 @@
   </div>
 
   <p>
-    土日祝日など市場が休場の日は除き、次に取引が行われた営業日を「翌営業日」としています。
+    土日祝日など市場が休場の日は除き、
+    次に取引が行われた営業日を「翌営業日」としています。
   </p>
 
   <h2>全17回の検証結果</h2>
 
   <p>
-    対象期間中に、日経平均が前営業日比で3％以上下落したケースは17回ありました。
+    対象期間中に、日経平均が前営業日比で3％以上下落したケースは
+    17回ありました。
   </p>
 
   <div class="table-wrap">
@@ -240,7 +382,8 @@
   <h2>17回中10回は翌営業日に上昇</h2>
 
   <p>
-    17回のうち、翌営業日に日経平均が上昇したケースは10回、下落したケースは7回でした。
+    17回のうち、翌営業日に日経平均が上昇したケースは10回、
+    下落したケースは7回でした。
   </p>
 
   <p>
@@ -248,7 +391,10 @@
   </p>
 
   <p>
-    今回の対象期間だけを見ると、3％以上の急落後は「翌営業日に上昇したケースの方がやや多かった」という結果になりました。
+    今回の対象期間だけを見ると、
+    3％以上の急落後は
+    「翌営業日に上昇したケースの方がやや多かった」
+    という結果になりました。
   </p>
 
   <p>
@@ -259,7 +405,8 @@
   <h2>平均は+0.80％、中央値は+0.15％</h2>
 
   <p>
-    上昇した回数だけではなく、翌営業日の騰落率そのものも集計しました。
+    上昇した回数だけではなく、
+    翌営業日の騰落率そのものも集計しました。
   </p>
 
   <p>
@@ -268,33 +415,42 @@
   </p>
 
   <p>
-    平均値が中央値より大きくなった背景には、一部の非常に大きな反発があります。
+    平均値が中央値より大きくなった背景には、
+    一部の非常に大きな反発があります。
   </p>
 
   <p>
-    たとえば2024年8月5日に日経平均は12.40％下落しましたが、翌営業日の8月6日には10.23％上昇しました。
+    たとえば2024年8月5日に日経平均は12.40％下落しましたが、
+    翌営業日の8月6日には10.23％上昇しました。
   </p>
 
   <p>
-    2025年4月9日の3.93％下落後も、翌営業日は9.13％上昇しています。
+    2025年4月9日の3.93％下落後も、
+    翌営業日は9.13％上昇しています。
   </p>
 
   <p>
-    このような大幅反発が平均値を押し上げているため、「平均+0.80％だから、急落の翌日は通常0.8％程度上がる」と解釈するのは適切ではありません。
+    このような大幅反発が平均値を押し上げているため、
+    「平均+0.80％だから、急落の翌日は通常0.8％程度上がる」
+    と解釈するのは適切ではありません。
   </p>
 
   <h2>急落後にさらに大きく下がったケースもある</h2>
 
   <p>
-    最も注意したいのは、大幅下落の翌日だからといって必ず反発するわけではない点です。
+    最も注意したいのは、
+    大幅下落の翌日だからといって必ず反発するわけではない点です。
   </p>
 
   <p>
-    2024年8月2日に日経平均は5.81％下落しましたが、次の営業日である8月5日にはさらに12.40％下落しました。
+    2024年8月2日に日経平均は5.81％下落しましたが、
+    次の営業日である8月5日にはさらに12.40％下落しました。
   </p>
 
   <p>
-    「大きく下がったから、次は上がるはず」という考えだけで判断すると、さらに大きな下落に直面する可能性があります。
+    「大きく下がったから、次は上がるはず」
+    という考えだけで判断すると、
+    さらに大きな下落に直面する可能性があります。
   </p>
 
   <p>
@@ -305,11 +461,14 @@
   <h2>「急落後は反発しやすい」は本当なのか</h2>
 
   <p>
-    今回の結果だけを見ると、急落翌日の上昇率は58.8％で、50％を上回りました。
+    今回の結果だけを見ると、
+    急落翌日の上昇割合は58.8％で、50％を上回りました。
   </p>
 
   <p>
-    その意味では、「急落後は反発するケースがやや多かった」と言うことはできます。
+    その意味では、
+    「急落後は反発するケースがやや多かった」
+    と言うことはできます。
   </p>
 
   <p>
@@ -317,63 +476,102 @@
   </p>
 
   <p>
-    第一に、該当回数は17回しかありません。
-    3％以上の下落は頻繁に発生するものではないため、今回の無料公開データの範囲ではサンプル数が限られています。
+    第一に、該当回数は17回です。
+    3％以上の下落は頻繁に発生するものではなく、
+    今回の対象期間ではサンプル数が限られています。
   </p>
 
   <p>
     第二に、すべての急落が同じ原因で起きるわけではありません。
-    金融政策、海外市場、地政学的リスク、景気不安など、下落の背景はその時々で異なります。
+    金融政策、海外市場、地政学的リスク、景気不安など、
+    下落の背景はその時々で異なります。
   </p>
 
   <p>
-    第三に、今回検証したのは「翌営業日の終値が上がったか、下がったか」です。
-    翌日の取引時間中の値動きや、その後数日間の推移までは今回の判定には含めていません。
+    第三に、今回検証したのは
+    「翌営業日の終値が上がったか、下がったか」です。
+    翌日の取引時間中の値動きや、
+    その後数日間の推移までは今回の判定には含めていません。
   </p>
 
   <h2>今回の結論</h2>
 
+  <div class="conclusion">
+    <p>
+      2023年1月4日から2026年7月10日までの日次データでは、
+      日経平均が3％以上下落したケースは17回ありました。
+    </p>
+
+    <p>
+      その翌営業日に上昇したのは10回で、上昇割合は58.8％。
+      翌営業日の平均騰落率は+0.80％、
+      中央値は+0.15％でした。
+    </p>
+
+    <p>
+      <strong>
+        今回の検証では、急落後はやや反発するケースが多かったものの、
+        急落したという事実だけで翌日の上昇を予測できるほど
+        強い法則は確認できませんでした。
+      </strong>
+    </p>
+  </div>
+
   <p>
-    2023年1月4日から2026年7月10日までの日次データでは、日経平均が3％以上下落したケースは17回ありました。
+    翌営業日も下落したケースは17回中7回あり、
+    中には急落後にさらに大幅下落した例もあります。
   </p>
 
   <p>
-    その翌営業日に上昇したのは10回で、上昇率は58.8％。
-    翌営業日の平均騰落率は+0.80％、中央値は+0.15％でした。
-  </p>
-
-  <p>
-    今回のデータでは、急落翌日に反発するケースの方がやや多い結果となりました。
-  </p>
-
-  <p>
-    ただし、翌営業日も下落したケースは17回中7回あり、中には急落後にさらに大幅下落した例もあります。
-  </p>
-
-  <p>
-    したがって、今回の検証からは、
-    <strong>「急落後はやや反発するケースが多かったが、急落したという事実だけで翌日の上昇を予測できるほど強い法則ではない」</strong>
-    と考えるのが妥当です。
+    今回の結果は、
+    「大きく下がったから次は必ず上がる」
+    という単純な見方を支持するものではありません。
   </p>
 
   <h2>データと検証方法について</h2>
 
   <p>
-    本検証には、日本経済新聞社が公開する日経平均株価の日次データを使用しました。
+    本検証では、日経平均株価の日次データをもとに、
+    各営業日の終値から前営業日比の騰落率を計算しました。
   </p>
 
   <p>
-    各営業日の終値から前営業日比の騰落率を計算し、3％以上下落した日を抽出。
-    その次の営業日の終値との騰落率を独自に集計しました。
+    そのうち3％以上下落した日を抽出し、
+    次の営業日の終値との騰落率を集計しています。
   </p>
 
+  <div class="source-box">
+    <p>
+      <strong>データ出典：</strong><br>
+      日本経済新聞社「日経平均プロフィル」ヒストリカルデータ
+    </p>
+
+    <p>
+      <strong>集計方法：</strong><br>
+      公開された日次データをもとに、市場検証室が独自に条件抽出・計算・集計。
+    </p>
+
+    <p>
+      <strong>対象期間：</strong><br>
+      2023年1月4日〜2026年7月10日
+    </p>
+  </div>
+
   <p>
-    市場検証室では、投資の世界で語られるウワサや定説を、そのまま信じるのではなく、実際の過去データから検証していきます。
+    市場検証室では、投資の世界で語られるウワサや定説を
+    そのまま信じるのではなく、
+    実際の過去データから一つずつ検証していきます。
   </p>
 
   <p class="note">
-    ※本記事は過去データの検証を目的としたものであり、特定の金融商品や売買手法を推奨するものではありません。過去の結果は将来の値動きを保証するものではありません。
+    ※本記事は過去データの検証を目的としたものであり、
+    特定の金融商品や売買手法を推奨するものではありません。
+    過去の結果は将来の値動きを保証するものではありません。
   </p>
+
+  <div class="back-link">
+    <a href="index.html">← 市場検証室のトップページへ戻る</a>
+  </div>
 
 </article>
 </main>
