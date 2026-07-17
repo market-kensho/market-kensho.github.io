@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://market-kensho.github.io/sitemap.xml
