@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>日経平均が3％以上下落した5営業日後は、どこまで戻るのか？｜市場検証室</title>
+
+  <meta name="description"
+        content="日経平均が前営業日比で3％以上下落した17回について、5営業日後の騰落率を過去データから検証。上昇割合、平均、中央値、注意点を整理しました。">
+
+  <link rel="canonical"
+        href="https://market-kensho.github.io/nikkei-3percent-5days.html">
+
+  <meta name="robots" content="index,follow">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title"
+        content="日経平均が3％以上下落した5営業日後は、どこまで戻るのか？">
+  <meta property="og:description"
+        content="日経平均が3％以上急落した後、5営業日でどの程度戻ったのかを過去17回から検証しました。">
+  <meta property="og:url"
+        content="https://market-kensho.github.io/nikkei-3percent-5days.html">
+  <meta property="og:site_name" content="市場検証室">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "日経平均が3％以上下落した5営業日後は、どこまで戻るのか？",
+    "description": "日経平均が前営業日比で3％以上下落した17回について、5営業日後の値動きを検証した記事です。",
+    "datePublished": "2026-07-19",
+    "dateModified": "2026-07-19",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://market-kensho.github.io/nikkei-3percent-5days.html"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "小野兼司",
+      "url": "https://market-kensho.github.io/kenji-ono.html"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "市場検証室",
+      "url": "https://market-kensho.github.io/"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --navy: #12355b;
+      --blue: #1d5d91;
+      --light-blue: #eef5fb;
+      --border: #d9e2ea;
+      --text: #263238;
+      --muted: #62727b;
+      --green: #18794e;
+      --red: #c62828;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f7f9;
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+      line-height: 1.9;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 22px 18px;
+    }
+
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+    }
+
+    .site-title a {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .site-description {
+      margin: 6px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 24px auto;
+      padding: 0 14px;
+    }
+
+    article {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px 24px;
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .article-number {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--light-blue);
+      color: var(--blue);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: clamp(1.65rem, 6vw, 2.35rem);
+      line-height: 1.45;
+    }
+
+    h2 {
+      margin-top: 42px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--blue);
+      color: var(--navy);
+      font-size: 1.4rem;
+      line-height: 1.5;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: var(--navy);
+      font-size: 1.15rem;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .summary-card {
+      padding: 18px 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--light-blue);
+      text-align: center;
+    }
+
+    .summary-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .summary-value {
+      display: block;
+      margin-top: 4px;
+      color: var(--navy);
+      font-size: 1.55rem;
+      font-weight: 800;
+    }
+
+    .positive {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .negative {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .condition-box,
+    .conclusion-box,
+    .notice-box {
+      margin: 22px 0;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    .condition-box {
+      border-left: 5px solid var(--blue);
+      background: var(--light-blue);
+    }
+
+    .conclusion-box {
+      border: 2px solid var(--blue);
+      background: #f7fbff;
+    }
+
+    .notice-box {
+      border: 1px solid #e1c46a;
+      background: #fff9e7;
+      font-size: 0.94rem;
+    }
+
+    ul {
+      padding-left: 1.4em;
+    }
+
+    .table-wrap {
+      width: 100%;
+      margin: 20px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      min-width: 540px;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th,
+    td {
+      padding: 10px 8px;
+      border: 1px solid var(--border);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    th {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f7f9fb;
+    }
+
+    .source {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .author-box {
+      margin-top: 34px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fafcfd;
+    }
+
+    .related-links {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--light-blue);
+    }
+
+    .related-links p {
+      margin: 8px 0;
+    }
+
+    .back-link {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 18px 14px 30px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 620px) {
+      main {
+        margin-top: 14px;
+        padding: 0 10px;
+      }
+
+      article {
+        padding: 24px 17px;
+        border-radius: 8px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+      }
+
+      .summary-value {
+        margin-top: 0;
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <p class="site-title">
+        <a href="index.html">市場検証室</a>
+      </p>
+      <p class="site-description">
+        投資のウワサや定説を、過去データで検証する。
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <span class="article-number">検証記事 #004</span>
+
+      <h1>
+        日経平均が3％以上下落した5営業日後は、どこまで戻るのか？
+      </h1>
+
+      <p class="lead">
+        日経平均が大きく下落すると、翌日の反発だけでなく、
+        「数日待てば元の水準へ戻るのではないか」
+        という見方も出てきます。
+      </p>
+
+      <p>
+        前回の記事では、日経平均が前営業日比で3％以上下落した日の
+        翌営業日を調べました。
+        今回は同じ17回を対象に、急落日の終値から
+        5営業日後の終値までに、どの程度上昇または下落したのかを検証します。
+      </p>
+
+      <h2>検証結果</h2>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <span class="summary-label">対象となった急落</span>
+          <span class="summary-value">17回</span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">5営業日後に上昇</span>
+          <span class="summary-value">13回</span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">上昇割合</span>
+          <span class="summary-value">76.5％</span>
+        </div>
+      </div>
+
+      <div class="conclusion-box">
+        <p>
+          <strong>5営業日後の平均騰落率：</strong>
+          <span class="positive">＋1.66％</span>
+        </p>
+
+        <p>
+          <strong>5営業日後の騰落率中央値：</strong>
+          <span class="positive">＋0.72％</span>
+        </p>
+      </div>
+
+      <h2>検証条件</h2>
+
+      <div class="condition-box">
+        <ul>
+          <li>対象：日経平均株価</li>
+          <li>対象期間：2023年1月4日〜2026年7月10日</li>
+          <li>急落の条件：前営業日の終値から3％以上下落</li>
+          <li>比較対象：急落日の終値と、その5営業日後の終値</li>
+          <li>土日・祝日・休場日は営業日数に含めない</li>
+        </ul>
+      </div>
+
+      <p>
+        5営業日後の騰落率は、急落日の終値を基準として、
+        その後5回目の取引日の終値までの変化率を計算しています。
+      </p>
+
+      <h2>全17回の検証結果</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>急落日</th>
+              <th>急落率</th>
+              <th>5営業日後</th>
+              <th>5日後騰落率</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>2024/07/25</td>
+              <td class="negative">−3.28％</td>
+              <td>2024/08/01</td>
+              <td class="positive">＋0.68％</td>
+            </tr>
+            <tr>
+              <td>2024/08/02</td>
+              <td class="negative">−5.81％</td>
+              <td>2024/08/09</td>
+              <td class="negative">−2.46％</td>
+            </tr>
+            <tr>
+              <td>2024/08/05</td>
+              <td class="negative">−12.40％</td>
+              <td>2024/08/13</td>
+              <td class="positive">＋15.18％</td>
+            </tr>
+            <tr>
+              <td>2024/09/04</td>
+              <td class="negative">−4.24％</td>
+              <td>2024/09/11</td>
+              <td class="negative">−3.85％</td>
+            </tr>
+            <tr>
+              <td>2024/09/30</td>
+              <td class="negative">−4.80％</td>
+              <td>2024/10/07</td>
+              <td class="positive">＋3.73％</td>
+            </tr>
+            <tr>
+              <td>2025/03/31</td>
+              <td class="negative">−4.05％</td>
+              <td>2025/04/07</td>
+              <td class="negative">−12.58％</td>
+            </tr>
+            <tr>
+              <td>2025/04/07</td>
+              <td class="negative">−7.83％</td>
+              <td>2025/04/14</td>
+              <td class="positive">＋9.14％</td>
+            </tr>
+            <tr>
+              <td>2025/04/09</td>
+              <td class="negative">−3.93％</td>
+              <td>2025/04/16</td>
+              <td class="positive">＋6.96％</td>
+            </tr>
+            <tr>
+              <td>2025/11/18</td>
+              <td class="negative">−3.22％</td>
+              <td>2025/11/26</td>
+              <td class="positive">＋1.76％</td>
+            </tr>
+            <tr>
+              <td>2026/03/03</td>
+              <td class="negative">−3.06％</td>
+              <td>2026/03/10</td>
+              <td class="negative">−3.61％</td>
+            </tr>
+            <tr>
+              <td>2026/03/04</td>
+              <td class="negative">−3.61％</td>
+              <td>2026/03/11</td>
+              <td class="positive">＋1.44％</td>
+            </tr>
+            <tr>
+              <td>2026/03/09</td>
+              <td class="negative">−5.20％</td>
+              <td>2026/03/16</td>
+              <td class="positive">＋1.94％</td>
+            </tr>
+            <tr>
+              <td>2026/03/19</td>
+              <td class="negative">−3.38％</td>
+              <td>2026/03/27</td>
+              <td class="positive">＋0.00％</td>
+            </tr>
+            <tr>
+              <td>2026/03/23</td>
+              <td class="negative">−3.48％</td>
+              <td>2026/03/30</td>
+              <td class="positive">＋0.72％</td>
+            </tr>
+            <tr>
+              <td>2026/06/08</td>
+              <td class="negative">−3.85％</td>
+              <td>2026/06/15</td>
+              <td class="positive">＋8.27％</td>
+            </tr>
+            <tr>
+              <td>2026/06/23</td>
+              <td class="negative">−3.55％</td>
+              <td>2026/06/30</td>
+              <td class="positive">＋0.39％</td>
+            </tr>
+            <tr>
+              <td>2026/06/26</td>
+              <td class="negative">−4.15％</td>
+              <td>2026/07/03</td>
+              <td class="positive">＋0.55％</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>17回中13回は5営業日後に上昇</h2>
+
+      <p>
+        対象となった17回のうち、急落日の終値よりも
+        5営業日後の終値が高かったケースは13回でした。
+      </p>
+
+      <p>
+        割合にすると76.5％であり、前回調べた
+        「翌営業日に上昇した割合58.8％」より高い結果です。
+      </p>
+
+      <p>
+        今回の対象期間だけを見ると、急落直後の1日だけで判断するよりも、
+        5営業日程度の時間を置いた方が、値を戻していたケースが多かったといえます。
+      </p>
+
+      <h2>平均は＋1.66％、中央値は＋0.72％</h2>
+
+      <p>
+        5営業日後の騰落率を17回すべて平均すると、
+        <span class="positive">＋1.66％</span>でした。
+      </p>
+
+      <p>
+        一方、値を小さい順に並べた中央の数値である中央値は、
+        <span class="positive">＋0.72％</span>です。
+      </p>
+
+      <p>
+        平均値が中央値を上回った背景には、
+        一部の大幅な反発があります。
+      </p>
+
+      <p>
+        2024年8月5日の12.40％下落後は、
+        5営業日後までに15.18％上昇しました。
+        2025年4月7日の急落後も9.14％、
+        2026年6月8日の急落後も8.27％上昇しています。
+      </p>
+
+      <p>
+        このような大きな反発が平均値を押し上げているため、
+        「急落から5日後は通常1.66％上がる」
+        と単純に考えるのは適切ではありません。
+      </p>
+
+      <h2>5営業日待っても下落したケースがある</h2>
+
+      <p>
+        17回中4回は、5営業日後も急落日の終値を下回っていました。
+      </p>
+
+      <p>
+        特に2025年3月31日の4.05％下落後は、
+        5営業日後までにさらに12.58％下落しています。
+      </p>
+
+      <p>
+        2024年9月4日の急落後は3.85％、
+        2026年3月3日の急落後は3.61％、
+        2024年8月2日の急落後は2.46％下落しました。
+      </p>
+
+      <p>
+        大幅下落の後でも、相場を動かしている原因が解消されなければ、
+        下落が数日間続く可能性があります。
+      </p>
+
+      <h2>急落後は5日待てば戻るのか</h2>
+
+      <p>
+        今回の結果では、5営業日後の上昇割合は76.5％となり、
+        上昇したケースが明確に多くなりました。
+      </p>
+
+      <p>
+        ただし、対象は17回に限られています。
+        また、金融政策、海外市場、地政学的リスク、
+        景気不安など、急落の原因はそれぞれ異なります。
+      </p>
+
+      <p>
+        5営業日後に上昇したという結果だけでは、
+        その間にどれほど大きく下落したか、
+        どの時点で安値や高値を付けたかまでは分かりません。
+      </p>
+
+      <p>
+        終値では回復していても、途中で大きな含み損が発生していたケースや、
+        一度反発した後に再び下落したケースも考えられます。
+      </p>
+
+      <h2>今回の結論</h2>
+
+      <div class="conclusion-box">
+        <p>
+          2023年1月4日から2026年7月10日までに、
+          日経平均が前営業日比で3％以上下落したケースは17回ありました。
+        </p>
+
+        <p>
+          そのうち5営業日後に上昇していたのは13回で、
+          上昇割合は76.5％でした。
+        </p>
+
+        <p>
+          5営業日後の平均騰落率は
+          <span class="positive">＋1.66％</span>、
+          中央値は
+          <span class="positive">＋0.72％</span>です。
+        </p>
+
+        <p>
+          今回の期間では、急落後5営業日以内に値を戻したケースが多かった一方、
+          17回中4回はさらに下落しました。
+        </p>
+      </div>
+
+      <p>
+        したがって、「急落後は5日待てば必ず戻る」
+        という法則が確認されたわけではありません。
+      </p>
+
+      <p>
+        今回の結果は、大幅下落後には反発するケースが比較的多かったものの、
+        急落したという条件だけで、その後の値動きを確実に予測することはできない、
+        ということを示しています。
+      </p>
+
+      <h2>データと検証方法について</h2>
+
+      <p>
+        本検証では、日経平均株価の日次終値データをもとに、
+        各営業日の前営業日比騰落率を計算しました。
+      </p>
+
+      <p>
+        そのうち3％以上下落した日を抽出し、
+        急落日の終値から5営業日後の終値までの騰落率を
+        市場検証室が独自に計算・集計しています。
+      </p>
+
+      <div class="source">
+        <p>
+          <strong>データ出典：</strong><br>
+          日本経済新聞社「日経平均プロフィル」ヒストリカルデータ<br>
+          FRED「Nikkei Stock Average, Nikkei 225」
+        </p>
+
+        <p>
+          <strong>対象期間：</strong><br>
+          2023年1月4日〜2026年7月10日
+        </p>
+
+        <p>
+          <strong>集計日：</strong><br>
+          2026年7月19日
+        </p>
+      </div>
+
+      <div class="notice-box">
+        ※本記事は過去データの検証を目的としたものであり、
+        特定の金融商品、投資判断、売買手法を推奨するものではありません。
+        過去の結果は将来の値動きを保証するものではありません。
+      </div>
+
+      <div class="author-box">
+        検証・記録：
+        <a href="kenji-ono.html">小野兼司</a>
+      </div>
+
+      <div class="related-links">
+        <p><strong>関連記事</strong></p>
+
+        <p>
+          <a href="nikkei-3percent-drop.html">
+            日経平均が3％以上下落した翌日は、本当に反発しやすいのか？
+          </a>
+        </p>
+
+        <p>
+          <a href="sell-in-may.html">
+            「Sell in May」は、日本株でも本当に当てはまるのか？
+          </a>
+        </p>
+
+        <p>
+          <a href="usd-jpy-nikkei.html">
+            ドル円が急騰すると、日経平均は本当に上がるのか？
+          </a>
+        </p>
+      </div>
+
+      <div class="back-link">
+        <a href="index.html">← 市場検証室のトップページへ戻る</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    © 市場検証室
+  </footer>
+</body>
+</html>
